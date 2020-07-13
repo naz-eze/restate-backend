@@ -1,2 +1,10 @@
 firebase:
     database-url: https://restate-bcn.firebaseio.com
+spring:
+  datasource:
+    initialization-mode: always
+    url: jdbc:mysql://localhost:3306/restate?serverTimezone=UTC
+    username:
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

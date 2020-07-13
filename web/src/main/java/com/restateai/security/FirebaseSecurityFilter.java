@@ -3,11 +3,13 @@ package com.restateai.security;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
-import com.restateai.model.User;
+import com.restateai.service.CustomUserDetailsService;
 import java.io.IOException;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -22,8 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 @Log4j2
 public class FirebaseSecurityFilter extends OncePerRequestFilter {
 
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse,
+                                    FilterChain filterChain) throws ServletException, IOException {
         verifyToken(httpServletRequest);
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
@@ -32,7 +39,6 @@ public class FirebaseSecurityFilter extends OncePerRequestFilter {
         FirebaseToken decodedToken = null;
         String token = getBearerToken(request);
         try {
-
             if (token != null && !token.equalsIgnoreCase("undefined")) {
                 decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             }
@@ -41,12 +47,15 @@ public class FirebaseSecurityFilter extends OncePerRequestFilter {
             e.printStackTrace();
             log.error("Firebase Exception:: " + e.getLocalizedMessage());
         }
-        User user = firebaseTokenToUserDto(decodedToken);
-        if (user != null) {
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.getEmail(),
-                    new Credentials(decodedToken, token), null);
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        if (decodedToken != null) {
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(decodedToken.getEmail());
+            if (userDetails != null) {
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
+                        new Credentials(decodedToken, token), userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
     }
 
@@ -57,17 +66,5 @@ public class FirebaseSecurityFilter extends OncePerRequestFilter {
             bearerToken = authorization.substring(7);
         }
         return bearerToken;
-    }
-
-    private User firebaseTokenToUserDto(FirebaseToken decodedToken) {
-        User user = null;
-        if (decodedToken != null) {
-            user = new User();
-            user.setUid(decodedToken.getUid());
-            user.setName(decodedToken.getName());
-            user.setEmail(decodedToken.getEmail());
-            user.setEmailVerified(decodedToken.isEmailVerified());
-        }
-        return user;
     }
 }

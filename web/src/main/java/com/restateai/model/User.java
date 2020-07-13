@@ -19,7 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String uid;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -27,12 +27,12 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column
     private String deviceId;
 
-    @Column(nullable = false)
+    @Column
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column
     private boolean isEmailVerified = false;
 }

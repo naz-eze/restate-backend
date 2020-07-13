@@ -1,7 +1,6 @@
 package com.restateai.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import java.security.Principal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,8 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @GetMapping("/hello")
-    public String sayHello() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "Hello - " + authentication.getName();
+    public String sayHello(Principal principal) {
+        return "Hello - " + principal.getName();
     }
 }
