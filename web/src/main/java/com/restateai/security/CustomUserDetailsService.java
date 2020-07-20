@@ -1,8 +1,7 @@
-package com.restateai.service;
+package com.restateai.security;
 
-import com.restateai.model.User;
-import com.restateai.repository.UserRepository;
-import com.restateai.security.UserPrincipal;
+import com.restateai.model.AgentModel;
+import com.restateai.repository.AgentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,12 +12,12 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AgentRepository agentRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + email));
-        return UserPrincipal.create(user);
+        AgentModel agent = agentRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Agent not found with email : " + email));
+        return UserPrincipal.create(agent);
     }
 }
