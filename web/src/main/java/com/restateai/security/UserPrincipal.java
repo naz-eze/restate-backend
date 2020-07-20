@@ -1,6 +1,6 @@
 package com.restateai.security;
 
-import com.restateai.model.User;
+import com.restateai.model.AgentModel;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -24,13 +24,13 @@ public class UserPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserPrincipal create(User user) {
+    public static UserPrincipal create(AgentModel agent) {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new UserPrincipal(
-                user.getId(),
-                user.getEmail(),
+                agent.getId(),
+                agent.getEmail(),
                 authorities
         );
     }
