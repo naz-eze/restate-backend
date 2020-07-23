@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS agents (
     id INT(20) NOT NULL AUTO_INCREMENT,
     created_time TIMESTAMP DEFAULT now(),
-    updated_time TIMESTAMP DEFAULT now() ON UPDATE now(),
+    updated_time TIMESTAMP ON UPDATE now(),
     email VARCHAR(255) NOT NULL UNIQUE,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255),

@@ -1,6 +1,8 @@
 package com.restateai.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -11,10 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @MappedSuperclass
 @Data
+@JsonInclude(NON_NULL)
 public abstract class DataAccessObject implements Serializable {
 
     @Id
@@ -26,7 +30,7 @@ public abstract class DataAccessObject implements Serializable {
     @Column(updatable = false)
     private Date createdTime = new Date();
 
-    @JsonIgnore
     @UpdateTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     private Date updatedTime;
 }
