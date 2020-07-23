@@ -1,6 +1,7 @@
 package com.restateai.model.lead;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.restateai.model.AgentModel;
 import com.restateai.model.DataAccessObject;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static com.restateai.model.lead.LeadStatus.NEW;
 import static javax.persistence.EnumType.STRING;
 
@@ -23,6 +25,7 @@ import static javax.persistence.EnumType.STRING;
         @UniqueConstraint(columnNames = "phoneNumber")
 })
 @EqualsAndHashCode(callSuper = false)
+@JsonInclude(NON_NULL)
 public class LeadModel extends DataAccessObject {
 
     @Column(nullable = false)
