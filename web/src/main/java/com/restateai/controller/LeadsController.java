@@ -1,9 +1,11 @@
 package com.restateai.controller;
 
+import com.restateai.dto.LeadsDTO;
 import com.restateai.model.lead.LeadModel;
 import com.restateai.service.AgentsService;
 import com.restateai.service.LeadsService;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +23,12 @@ public class LeadsController {
     private AgentsService agentsService;
 
     @GetMapping("/api/leads")
-    public List<LeadModel> getAllLeads(Principal principal) {
-        return agentsService.findByEmail(principal.getName())
+    public LeadsDTO getAllLeads(Principal principal) {
+        List<LeadModel> leads = agentsService.findByEmail(principal.getName())
                 .map(agent -> leadsService.findByAgent(agent))
                 .orElse(emptyList());
+        LeadsDTO leadsDTO = new LeadsDTO();
+        leadsDTO.setLeads(new ArrayList<>(leads));
+        return leadsDTO;
     }
 }
