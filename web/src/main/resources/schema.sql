@@ -29,3 +29,13 @@ CREATE TABLE IF NOT EXISTS leads (
     PRIMARY KEY (id),
     FOREIGN KEY (agent_id) REFERENCES agents (id)
 );
+
+CREATE TABLE IF NOT EXISTS comments (
+    id INT(20) NOT NULL AUTO_INCREMENT,
+    created_time TIMESTAMP DEFAULT now(),
+    updated_time TIMESTAMP DEFAULT now() ON UPDATE now(),
+    comment_content VARCHAR(255) NOT NULL,
+    lead_id INT(20),
+    PRIMARY KEY (id),
+    FOREIGN KEY (lead_id) REFERENCES leads (id)
+);
