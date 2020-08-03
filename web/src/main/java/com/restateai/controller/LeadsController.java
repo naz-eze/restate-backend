@@ -61,7 +61,7 @@ public class LeadsController {
     public Comment saveComment(@PathVariable("leadId") Long leadId, @RequestBody String commentContent) {
         return leadsService.findById(leadId).map(lead -> {
             Comment comment = new Comment();
-            comment.setContent(commentContent);
+            comment.setContent(commentContent.replaceAll("\"", ""));
             comment.setLeadModel(lead);
             return commentService.saveComment(comment);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to save comment"));
