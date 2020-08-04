@@ -14,7 +14,7 @@ import javax.persistence.UniqueConstraint;
         @UniqueConstraint(columnNames = "email")
 })
 @EqualsAndHashCode(callSuper = false)
-public class AgentModel extends DataAccessObject {
+public class Agent extends DataAccessObject {
 
     @Column(nullable = false)
     private String firstName;

@@ -1,12 +1,12 @@
 package com.restateai.repository;
 
-import com.restateai.model.AgentModel;
+import com.restateai.model.Agent;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AgentRepository extends JpaRepository<AgentModel, Long> {
+public interface AgentRepository extends JpaRepository<Agent, Long> {
 
-    Optional<AgentModel> findByEmail(String email);
+    Optional<Agent> findByEmail(String email);
 }

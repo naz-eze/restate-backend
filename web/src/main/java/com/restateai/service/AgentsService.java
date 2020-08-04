@@ -1,6 +1,6 @@
 package com.restateai.service;
 
-import com.restateai.model.AgentModel;
+import com.restateai.model.Agent;
 import com.restateai.repository.AgentRepository;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class AgentsService {
         this.agentRepository = agentRepository;
     }
 
-    public Optional<AgentModel> findByEmail(String email) {
+    public Optional<Agent> findByEmail(String email) {
         return agentRepository.findByEmail(email);
     }
 }

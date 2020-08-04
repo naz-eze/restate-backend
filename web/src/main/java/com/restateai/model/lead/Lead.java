@@ -2,7 +2,7 @@ package com.restateai.model.lead;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.restateai.model.AgentModel;
+import com.restateai.model.Agent;
 import com.restateai.model.DataAccessObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -60,5 +60,5 @@ public class Lead extends DataAccessObject {
     @ManyToOne
     @JoinColumn(name = "agentId", referencedColumnName = "id")
     @JsonIgnore
-    private AgentModel agent;
+    private Agent agent;
 }

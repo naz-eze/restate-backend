@@ -1,6 +1,6 @@
 package com.restateai.security;
 
-import com.restateai.model.AgentModel;
+import com.restateai.model.Agent;
 import com.restateai.repository.AgentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AgentModel agent = agentRepository.findByEmail(email)
+        Agent agent = agentRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Agent not found with email : " + email));
         return UserPrincipal.create(agent);
     }

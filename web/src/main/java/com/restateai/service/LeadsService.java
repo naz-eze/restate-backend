@@ -1,6 +1,6 @@
 package com.restateai.service;
 
-import com.restateai.model.AgentModel;
+import com.restateai.model.Agent;
 import com.restateai.model.lead.Lead;
 import com.restateai.repository.LeadsRepository;
 import java.util.List;
@@ -19,7 +19,7 @@ public class LeadsService {
         this.leadsRepository = leadsRepository;
     }
 
-    public List<Lead> findByAgent(AgentModel agent) {
+    public List<Lead> findByAgent(Agent agent) {
         return leadsRepository.findByAgent(agent);
     }
 
