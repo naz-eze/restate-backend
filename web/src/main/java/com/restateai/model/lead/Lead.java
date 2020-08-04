@@ -41,7 +41,7 @@ public class Lead extends DataAccessObject {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private String postCode;
+    private String address;
 
     @Enumerated(STRING)
     @Column(nullable = false)

@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS leads (
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone_number VARCHAR(255) NOT NULL,
-    post_code VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
     lead_status VARCHAR(255) NOT NULL,
     lead_type VARCHAR(255) NOT NULL,
     motivation VARCHAR(255),
