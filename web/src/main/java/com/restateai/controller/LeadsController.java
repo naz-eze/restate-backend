@@ -3,7 +3,7 @@ package com.restateai.controller;
 import com.restateai.dto.CommentsDTO;
 import com.restateai.dto.LeadsDTO;
 import com.restateai.model.lead.Comment;
-import com.restateai.model.lead.LeadModel;
+import com.restateai.model.lead.Lead;
 import com.restateai.service.AgentsService;
 import com.restateai.service.CommentService;
 import com.restateai.service.LeadsService;
@@ -36,7 +36,7 @@ public class LeadsController {
 
     @GetMapping("/api/leads")
     public LeadsDTO getAllLeads(Principal principal) {
-        List<LeadModel> leads = agentsService.findByEmail("naz@restateai.com")
+        List<Lead> leads = agentsService.findByEmail("naz@restateai.com")
                 .map(agent -> leadsService.findByAgent(agent))
                 .orElse(emptyList());
         LeadsDTO leadsDTO = new LeadsDTO();
@@ -45,8 +45,8 @@ public class LeadsController {
     }
 
     @PutMapping("/api/leads/{leadId}")
-    public LeadModel updateLead(@PathVariable("leadId") Long leadId, @RequestBody LeadModel leadModel) {
-        return leadsService.updateLead(leadId, leadModel);
+    public Lead updateLead(@PathVariable("leadId") Long leadId, @RequestBody Lead lead) {
+        return leadsService.updateLead(leadId, lead);
     }
 
     @GetMapping("/api/leads/{leadId}/comments")
@@ -62,7 +62,7 @@ public class LeadsController {
         return leadsService.findById(leadId).map(lead -> {
             Comment comment = new Comment();
             comment.setContent(commentContent.replaceAll("\"", ""));
-            comment.setLeadModel(lead);
+            comment.setLead(lead);
             return commentService.saveComment(comment);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to save comment"));
     }

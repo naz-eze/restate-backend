@@ -27,9 +27,9 @@ public class Comment extends DataAccessObject {
     @ManyToOne
     @JoinColumn(name = "leadId", referencedColumnName = "id")
     @JsonIgnore
-    private LeadModel leadModel;
+    private Lead lead;
 
     public Long getLeadId() {
-        return leadModel.getId();
+        return lead.getId();
     }
 }

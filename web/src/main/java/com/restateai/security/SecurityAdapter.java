@@ -49,7 +49,10 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
         http.csrf().disable().formLogin().disable()
                 .httpBasic().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint())
                 .and().authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated().and()
+                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+                .anyRequest().authenticated().and()
                 .addFilterBefore(firebaseSecurityFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

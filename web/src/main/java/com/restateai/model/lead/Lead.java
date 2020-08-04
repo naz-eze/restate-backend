@@ -26,7 +26,7 @@ import static javax.persistence.EnumType.STRING;
 })
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(NON_NULL)
-public class LeadModel extends DataAccessObject {
+public class Lead extends DataAccessObject {
 
     @Column(nullable = false)
     private String firstName;

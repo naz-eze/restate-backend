@@ -1,7 +1,7 @@
 package com.restateai.service;
 
 import com.restateai.model.AgentModel;
-import com.restateai.model.lead.LeadModel;
+import com.restateai.model.lead.Lead;
 import com.restateai.repository.LeadsRepository;
 import java.util.List;
 import java.util.Optional;
@@ -19,22 +19,22 @@ public class LeadsService {
         this.leadsRepository = leadsRepository;
     }
 
-    public List<LeadModel> findByAgent(AgentModel agent) {
+    public List<Lead> findByAgent(AgentModel agent) {
         return leadsRepository.findByAgent(agent);
     }
 
-    public Optional<LeadModel> findById(Long leadId) {
+    public Optional<Lead> findById(Long leadId) {
         return leadsRepository.findById(leadId);
     }
 
     @Transactional
-    public LeadModel updateLead(Long leadId, LeadModel leadModel) {
-        Optional<LeadModel> maybeLead = leadsRepository.findById(leadId);
+    public Lead updateLead(Long leadId, Lead lead) {
+        Optional<Lead> maybeLead = leadsRepository.findById(leadId);
 
-        return maybeLead.map(lead -> {
-            leadModel.setAgent(lead.getAgent());
+        return maybeLead.map(foundLead -> {
+            lead.setAgent(foundLead.getAgent());
             log.info("Updating lead details: {}",lead);
-            return leadsRepository.save(leadModel);
+            return leadsRepository.save(lead);
         }).orElseThrow(() -> new IllegalArgumentException("Lead not found"));
     }
 }

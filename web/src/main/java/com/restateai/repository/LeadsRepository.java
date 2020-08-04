@@ -1,13 +1,13 @@
 package com.restateai.repository;
 
 import com.restateai.model.AgentModel;
-import com.restateai.model.lead.LeadModel;
+import com.restateai.model.lead.Lead;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LeadsRepository extends JpaRepository<LeadModel, Long> {
+public interface LeadsRepository extends JpaRepository<Lead, Long> {
 
-    List<LeadModel> findByAgent(AgentModel agent);
+    List<Lead> findByAgent(AgentModel agent);
 }
