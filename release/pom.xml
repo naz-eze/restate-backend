@@ -7,10 +7,10 @@
     <parent>
         <groupId>com.restateai</groupId>
         <artifactId>restate-backend</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>release</artifactId>
+    <artifactId>restate-backend-release</artifactId>
     <description>restate-backend-release</description>
 
     <properties>
@@ -36,7 +36,7 @@
                                 <configuration>
                                     <sourceFile>${project.parent.basedir}/web/target/restate-backend-web-${project.version}-exec.jar
                                     </sourceFile>
-                                    <destinationFile>${project.basedir}/aws/restate.jar</destinationFile>
+                                    <destinationFile>${project.basedir}/restate.jar</destinationFile>
                                 </configuration>
                             </execution>
                         </executions>
