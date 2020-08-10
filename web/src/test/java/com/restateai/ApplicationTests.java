@@ -3,8 +3,7 @@ package com.restateai;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class RestateApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
