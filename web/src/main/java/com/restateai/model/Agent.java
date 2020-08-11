@@ -1,5 +1,6 @@
 package com.restateai.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,6 +27,7 @@ public class Agent extends DataAccessObject {
     private String email;
 
     @Column
+    @JsonIgnore
     private String deviceId;
 
     @Column
