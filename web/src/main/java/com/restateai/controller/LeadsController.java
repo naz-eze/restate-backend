@@ -10,6 +10,7 @@ import com.restateai.service.LeadsService;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
+@Log4j2
 public class LeadsController {
 
     @Autowired
@@ -38,6 +40,7 @@ public class LeadsController {
 
     @GetMapping("/api/leads")
     public LeadsDTO getAllLeads(Principal principal) {
+        log.debug("Fetching leads for agent. email: {}", principal.getName());
         List<Lead> leads = agentsService.findByEmail(principal.getName())
                 .map(agent -> leadsService.findByAgent(agent))
                 .orElse(emptyList());
