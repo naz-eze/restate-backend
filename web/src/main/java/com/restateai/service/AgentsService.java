@@ -17,4 +17,13 @@ public class AgentsService {
     public Optional<Agent> findByEmail(String email) {
         return agentRepository.findByEmail(email);
     }
+
+    public Optional<Agent> updateAgent(String email, String deviceId) {
+        return this.findByEmail(email)
+                .map(agent -> {
+                    agent.setDeviceId(deviceId);
+                    agentRepository.save(agent);
+                    return agent;
+                });
+    }
 }
