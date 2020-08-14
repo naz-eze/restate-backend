@@ -29,7 +29,7 @@ public class LeadsService {
     }
 
     public List<Lead> findByAgent(Agent agent) {
-        return leadsRepository.findByAgent(agent);
+        return leadsRepository.findByAgent(agent.getId());
     }
 
     public Optional<Lead> findById(Long leadId) {
