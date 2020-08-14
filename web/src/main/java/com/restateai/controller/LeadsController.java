@@ -40,7 +40,7 @@ public class LeadsController {
 
     @GetMapping("/api/leads")
     public LeadsDTO getAllLeads(Principal principal) {
-        log.debug("Fetching leads for agent. email: {}", principal.getName());
+        log.info("Fetching leads for agent. email: {}", principal.getName());
         List<Lead> leads = agentsService.findByEmail(principal.getName())
                 .map(agent -> leadsService.findByAgent(agent))
                 .orElse(emptyList());
@@ -82,6 +82,7 @@ public class LeadsController {
         return leadsService.findById(leadId).map(lead -> {
             Comment comment = new Comment();
             comment.setContent(commentContent.replaceAll("\"", ""));
+            lead.setUpdatedTime(comment.getUpdatedTime());
             comment.setLead(lead);
             return commentService.saveComment(comment);
         }).orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "Unable to save comment"));
