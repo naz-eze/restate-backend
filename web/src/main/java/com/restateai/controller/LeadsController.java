@@ -49,7 +49,7 @@ public class LeadsController {
         return leadsDTO;
     }
 
-    @PostMapping("/api/leads")
+    @PostMapping("/admin/leads")
     public Lead saveLead(@RequestParam(value = "agent-email", required = false) String agentEmail,
                          @RequestBody Lead lead) {
 

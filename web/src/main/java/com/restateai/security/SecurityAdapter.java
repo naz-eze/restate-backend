@@ -50,6 +50,8 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint())
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/admin/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/admin/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(firebaseSecurityFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
