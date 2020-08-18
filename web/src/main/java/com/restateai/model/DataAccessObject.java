@@ -31,6 +31,6 @@ public abstract class DataAccessObject implements Serializable {
     private Date createdTime = new Date();
 
     @UpdateTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", timezone = "Europe/Madrid")
     private Date updatedTime;
 }
