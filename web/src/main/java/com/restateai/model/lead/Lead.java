@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-import static com.restateai.model.lead.LeadStatus.NEW;
+import static com.restateai.model.lead.LeadStatus.NEW_LEAD;
 import static javax.persistence.EnumType.STRING;
 
 @Data
@@ -45,7 +45,7 @@ public class Lead extends DataAccessObject {
 
     @Enumerated(STRING)
     @Column(nullable = false)
-    private LeadStatus leadStatus = NEW;
+    private LeadStatus leadStatus = NEW_LEAD;
 
     @Enumerated(STRING)
     @Column(nullable = false)
