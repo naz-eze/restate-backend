@@ -22,7 +22,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <main.basedir>${project.basedir}</main.basedir>
-        <spring-boot-dependencies.version>2.3.1.RELEASE</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>2.5.12</spring-boot-dependencies.version>
         <lombok.version>1.18.4</lombok.version>
         <firebase.version>6.14.0</firebase.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
